@@ -6,6 +6,7 @@ import java.awt.*;
 @SuppressWarnings("serial")
 public class Calculator extends JFrame {
 
+    
     public Calculator(){
         final int screenWidth = 232;
         final int screenHeight = 322;
