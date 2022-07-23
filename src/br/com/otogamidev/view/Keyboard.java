@@ -2,9 +2,11 @@ package br.com.otogamidev.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
-public class Keyboard extends JPanel {
+public class Keyboard extends JPanel implements ActionListener {
     private final Color COLOR_DARK_GREY = new Color(68,68,68);
     private final Color COLOR_LIGHT_GREY = new Color(68,68,68);
     private final Color COLOR_ORANGE = new Color(242,163,60);
@@ -56,6 +58,14 @@ public class Keyboard extends JPanel {
         gridBagConstraints.gridx = positionX;
         gridBagConstraints.gridy = positionY;
         Button button = new Button(buttonText, buttonColor);
+        button.addActionListener(this);
         add(button, gridBagConstraints);
+    }
+
+    @Override
+    public void actionPerformed(final ActionEvent actionEvent) {
+        if(actionEvent.getSource() instanceof JButton) {
+            JButton buttonPressed = (JButton) actionEvent.getSource();
+        }
     }
 }
