@@ -1,5 +1,7 @@
 package br.com.otogamidev.view;
 
+import br.com.otogamidev.model.Memory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -66,6 +68,7 @@ public class Keyboard extends JPanel implements ActionListener {
     public void actionPerformed(final ActionEvent actionEvent) {
         if(actionEvent.getSource() instanceof JButton) {
             JButton buttonPressed = (JButton) actionEvent.getSource();
+            Memory.getSingletonInstance().processCommand(buttonPressed.getText());
         }
     }
 }
