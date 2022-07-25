@@ -13,6 +13,8 @@ public class Memory {
 
     }
 
+    private enum CommandType { RESET, NUMBER, DIVISION, MULTIPLICATION, SUM, SUBTRACTION, EQUAL, COMMA; };
+
     public List<ObserverMemory> getObservers() {
         return observers;
     }
@@ -34,8 +36,34 @@ public class Memory {
     }
 
     public void processCommand(final String newValue) {
+        CommandType commandType = detectCommandType(newValue);
+        System.out.println(commandType);
         setActualText(getActualText().concat(newValue));
         getObservers().forEach(observer -> observer.changeValue(getActualText()));
+    }
+
+    private CommandType detectCommandType(final String valueToBeVerified){
+        try{
+            Integer.parseInt(valueToBeVerified);
+            return CommandType.NUMBER;
+        } catch (NumberFormatException numberFormatException){
+            if("AC".equals(valueToBeVerified)){
+                return CommandType.RESET;
+            } else if ("/".equals(valueToBeVerified)){
+                return CommandType.DIVISION;
+            } else if ("X".equals(valueToBeVerified)){
+                return CommandType.MULTIPLICATION;
+            } else if ("+".equals(valueToBeVerified)){
+                return CommandType.SUM;
+            } else if ("-".equals(valueToBeVerified)){
+                return CommandType.SUBTRACTION;
+            } else if ("=".equals(valueToBeVerified)){
+                return CommandType.EQUAL;
+            } else if (",".equals(valueToBeVerified)){
+                return CommandType.COMMA;
+            }
+        }
+        return null;
     }
 
 }
