@@ -57,27 +57,13 @@ public class Memory {
                     setLastCommandType(null);
                     break;
                 case NUMBER:
-                    if(getActualText().equals("0")){
-                        setToReplace(true);
-                    }
+                    if(getActualText().equals("0")){ setToReplace(true); }
                 case COMMA:
                     setActualText(isToReplace() ? typedValue : getActualText().concat(typedValue));
                     setToReplace(false);
                     break;
-                case DIVISION:
-                    setActualText("");
-                    break;
-                case MULTIPLICATION:
-                    setActualText("");
-                    break;
-                case SUM:
-                    setActualText("");
-                    break;
-                case SUBTRACTION:
-                    setActualText("");
-                    break;
-                case EQUAL:
-                    setActualText("");
+                default:
+                    calculateMathOperation(commandType);
                     break;
             }
         }
@@ -106,6 +92,30 @@ public class Memory {
             }
         }
         return null;
+    }
+
+    private void calculateMathOperation(final CommandType commandType){
+        if((getBufferedText().isEmpty()) && (getLastCommandType() == null)){
+            setToReplace(true);
+            setBufferedText(getActualText());
+            setLastCommandType(commandType);
+        } else {
+            double bufferedTextCommaConversion = Double.parseDouble(getBufferedText().replace(",", "."));
+            double actualTextCommaConversion = Double.parseDouble(getActualText().replace(",", "."));
+            double resultMathOperation = 0;
+            if(getLastCommandType().equals(CommandType.SUM)){
+                resultMathOperation = (bufferedTextCommaConversion + actualTextCommaConversion);
+            } else if(getLastCommandType().equals(CommandType.SUBTRACTION)){
+                resultMathOperation = (bufferedTextCommaConversion - actualTextCommaConversion);
+            } else if(getLastCommandType().equals(CommandType.MULTIPLICATION)) {
+                resultMathOperation = (bufferedTextCommaConversion * actualTextCommaConversion);
+            } else if(getLastCommandType().equals(CommandType.DIVISION)) {
+                resultMathOperation = (bufferedTextCommaConversion / actualTextCommaConversion);
+            }
+            String resultMathToString = Double.toString(resultMathOperation).replace(".", ",");
+            resultMathToString = resultMathToString.contains(",0") ? resultMathToString.replace(",0", "") : resultMathToString;
+            setActualText(resultMathToString);
+        }
     }
 
 }
