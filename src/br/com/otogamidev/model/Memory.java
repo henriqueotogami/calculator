@@ -109,13 +109,18 @@ public class Memory {
     }
 
     private void addComma(final String typedValue) {
-        setActualText(isToReplace() ? typedValue : getActualText().concat(typedValue));
-        setToReplace(false);
+        setToReplace((getActualText().contains(",") == false) ? true : false);
+        setActualText(isToReplace() ? getActualText().concat(typedValue) : "");
     }
 
     private void storeNumberTyped(final String typedValue) {
-        setActualText(typedValue);
-        if(getFirstBufferedText().isEmpty()) {
+        if(getLastCommandType() == null) {
+            setActualText((getActualText().contains(",")) ? getActualText().concat(typedValue) : typedValue);
+        } else {
+            setActualText(typedValue);
+        }
+
+        if ((getFirstBufferedText().isEmpty()) || (getLastCommandType() == null)) {
             setFirstBufferedText(getActualText());
         } else {
             setSecondBufferedText(getActualText());
@@ -126,6 +131,7 @@ public class Memory {
         double firstBufferTextCommaConversion = Double.parseDouble(getFirstBufferedText().replace(",", "."));
         double secondBufferTextCommaConversion = Double.parseDouble(getSecondBufferedText().replace(",", "."));
         double resultMathOperation = 0;
+
         if(getLastCommandType().equals(CommandType.SUM)){
             resultMathOperation = (firstBufferTextCommaConversion + secondBufferTextCommaConversion);
         } else if(getLastCommandType().equals(CommandType.SUBTRACTION)){
