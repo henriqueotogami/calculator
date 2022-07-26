@@ -10,7 +10,8 @@ public class Memory {
     private CommandType lastCommandType = null;
     private boolean toReplace = false;
     private String actualText = "";
-    private String bufferedText = "";
+    private String firstBufferedText = "";
+    private String secondBufferedText = "";
 
     private Memory(){ }
 
@@ -36,13 +37,15 @@ public class Memory {
 
     public void setActualText(final String actualText) { this.actualText = actualText; }
 
-    public String getActualText() {
-        return actualText.isEmpty() ? "0" : actualText;
-    }
+    public String getActualText() { return actualText.isEmpty() ? "0" : actualText; }
 
-    public String getBufferedText() { return bufferedText; }
+    public String getFirstBufferedText() { return firstBufferedText; }
 
-    public void setBufferedText(final String bufferedText) { this.bufferedText = bufferedText; }
+    public void setFirstBufferedText(final String firstBufferedText) { this.firstBufferedText = firstBufferedText; }
+
+    public String getSecondBufferedText() { return secondBufferedText; }
+
+    public void setSecondBufferedText(final String secondBufferedText) { this.secondBufferedText = secondBufferedText; }
 
     public void processCommand(final String typedValue) {
         CommandType commandType = detectCommandType(typedValue);
@@ -51,19 +54,22 @@ public class Memory {
         } else {
             switch(commandType){
                 case RESET:
-                    setActualText("");
-                    setBufferedText("");
-                    setToReplace(false);
-                    setLastCommandType(null);
+                    resetMemory();
                     break;
                 case NUMBER:
-                    if(getActualText().equals("0")){ setToReplace(true); }
-                case COMMA:
-                    setActualText(isToReplace() ? typedValue : getActualText().concat(typedValue));
-                    setToReplace(false);
+                    storeNumberTyped(typedValue);
                     break;
-                default:
-                    calculateMathOperation(commandType);
+                case COMMA:
+                    addComma(typedValue);
+                    break;
+                case SUM:
+                case SUBTRACTION:
+                case MULTIPLICATION:
+                case DIVISION:
+                    setLastCommandType(commandType);
+                    break;
+                case EQUAL:
+                    calculateMathOperation();
                     break;
             }
         }
@@ -94,28 +100,45 @@ public class Memory {
         return null;
     }
 
-    private void calculateMathOperation(final CommandType commandType){
-        if((getBufferedText().isEmpty()) && (getLastCommandType() == null)){
-            setToReplace(true);
-            setBufferedText(getActualText());
-            setLastCommandType(commandType);
+    private void resetMemory() {
+        setActualText("");
+        setFirstBufferedText("");
+        setSecondBufferedText("");
+        setToReplace(false);
+        setLastCommandType(null);
+    }
+
+    private void addComma(final String typedValue) {
+        setActualText(isToReplace() ? typedValue : getActualText().concat(typedValue));
+        setToReplace(false);
+    }
+
+    private void storeNumberTyped(final String typedValue) {
+        setActualText(typedValue);
+        if(getFirstBufferedText().isEmpty()) {
+            setFirstBufferedText(getActualText());
         } else {
-            double bufferedTextCommaConversion = Double.parseDouble(getBufferedText().replace(",", "."));
-            double actualTextCommaConversion = Double.parseDouble(getActualText().replace(",", "."));
-            double resultMathOperation = 0;
-            if(getLastCommandType().equals(CommandType.SUM)){
-                resultMathOperation = (bufferedTextCommaConversion + actualTextCommaConversion);
-            } else if(getLastCommandType().equals(CommandType.SUBTRACTION)){
-                resultMathOperation = (bufferedTextCommaConversion - actualTextCommaConversion);
-            } else if(getLastCommandType().equals(CommandType.MULTIPLICATION)) {
-                resultMathOperation = (bufferedTextCommaConversion * actualTextCommaConversion);
-            } else if(getLastCommandType().equals(CommandType.DIVISION)) {
-                resultMathOperation = (bufferedTextCommaConversion / actualTextCommaConversion);
-            }
-            String resultMathToString = Double.toString(resultMathOperation).replace(".", ",");
-            resultMathToString = resultMathToString.contains(",0") ? resultMathToString.replace(",0", "") : resultMathToString;
-            setActualText(resultMathToString);
+            setSecondBufferedText(getActualText());
         }
+    }
+
+    private void calculateMathOperation(){
+        double firstBufferTextCommaConversion = Double.parseDouble(getFirstBufferedText().replace(",", "."));
+        double secondBufferTextCommaConversion = Double.parseDouble(getSecondBufferedText().replace(",", "."));
+        double resultMathOperation = 0;
+        if(getLastCommandType().equals(CommandType.SUM)){
+            resultMathOperation = (firstBufferTextCommaConversion + secondBufferTextCommaConversion);
+        } else if(getLastCommandType().equals(CommandType.SUBTRACTION)){
+            resultMathOperation = (firstBufferTextCommaConversion - secondBufferTextCommaConversion);
+        } else if(getLastCommandType().equals(CommandType.MULTIPLICATION)) {
+            resultMathOperation = (firstBufferTextCommaConversion * secondBufferTextCommaConversion);
+        } else if(getLastCommandType().equals(CommandType.DIVISION)) {
+            resultMathOperation = (firstBufferTextCommaConversion / secondBufferTextCommaConversion);
+        }
+        String resultMathToString = Double.toString(resultMathOperation).replace(".", ",");
+        resultMathToString = resultMathToString.contains(",0") ? resultMathToString.replace(",0", "") : resultMathToString;
+        setActualText(resultMathToString);
+        setFirstBufferedText(resultMathToString);
     }
 
 }
