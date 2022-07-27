@@ -9,6 +9,7 @@ public class Memory {
     private final List<ObserverMemory> observers = new ArrayList<>();
     private CommandType lastCommandType = null;
     private boolean toReplace = false;
+    private boolean continuingMathCalculation = false;
     private String actualText = "";
     private String firstBufferedText = "";
     private String secondBufferedText = "";
@@ -34,6 +35,10 @@ public class Memory {
     public boolean isToReplace() { return toReplace; }
 
     public void setToReplace(final boolean toReplace) { this.toReplace = toReplace; }
+
+    public boolean isContinuingMathCalculation() { return continuingMathCalculation; }
+
+    public void setContinuingMathCalculation(final boolean continuingMathCalculation) { this.continuingMathCalculation = continuingMathCalculation; }
 
     public void setActualText(final String actualText) { this.actualText = actualText; }
 
@@ -67,6 +72,7 @@ public class Memory {
                 case MULTIPLICATION:
                 case DIVISION:
                     setLastCommandType(commandType);
+                    setActualText("");
                     break;
                 case EQUAL:
                     calculateMathOperation();
@@ -105,6 +111,7 @@ public class Memory {
         setFirstBufferedText("");
         setSecondBufferedText("");
         setToReplace(false);
+        setContinuingMathCalculation(false);
         setLastCommandType(null);
     }
 
@@ -114,31 +121,18 @@ public class Memory {
     }
 
     private void storeNumberTyped(final String typedValue) {
-        if(getLastCommandType() == null) {
-            setActualText((getActualText().contains(",")) ? getActualText().concat(typedValue) : typedValue);
-            System.out.println("1 - getActualText: " + getActualText());
-        } else {
-            setActualText(typedValue);
-            System.out.println("2 - getActualText: " + getActualText());
-        }
 
-        if (getFirstBufferedText().isEmpty()) {
+        setActualText((getActualText().contains(",")) ? getActualText().concat(typedValue) : typedValue);
+        System.out.println("1 - getActualText: " + getActualText());
+
+        if ((getLastCommandType() == null) && (isContinuingMathCalculation() == false)) {
             setFirstBufferedText(getActualText());
-            System.out.println("3 - getActualText: " + getActualText());
-        } else if (getLastCommandType() == null){
-            setFirstBufferedText(getFirstBufferedText().concat(getActualText()));
-            setActualText(getFirstBufferedText());
-            System.out.println("4 - getActualText: " + getActualText());
+            System.out.println("2 - getActualText: " + getActualText());
+            return;
         } else {
-
-            if (getSecondBufferedText().isEmpty()) {
-                setSecondBufferedText(getActualText());
-                System.out.println("5 - getActualText: " + getActualText());
-            } else if (getLastCommandType() == null){
-                setSecondBufferedText(getSecondBufferedText().concat(getActualText()));
-                setActualText(getSecondBufferedText());
-                System.out.println("6 - getActualText: " + getActualText());
-            }
+            setSecondBufferedText(getActualText());
+            System.out.println("3 - getActualText: " + getActualText());
+            return;
         }
 
     }
@@ -147,6 +141,9 @@ public class Memory {
         double firstBufferTextCommaConversion = Double.parseDouble(getFirstBufferedText().replace(",", "."));
         double secondBufferTextCommaConversion = Double.parseDouble(getSecondBufferedText().replace(",", "."));
         double resultMathOperation = 0;
+
+        System.out.println("4 - firstBufferTextCommaConversion: " + firstBufferTextCommaConversion);
+        System.out.println("5 - secondBufferTextCommaConversion: " + secondBufferTextCommaConversion);
 
         setFirstBufferedText("");
         setSecondBufferedText("");
@@ -163,7 +160,8 @@ public class Memory {
         String resultMathToString = Double.toString(resultMathOperation).replace(".", ",");
         resultMathToString = resultMathToString.contains(",0") ? resultMathToString.replace(",0", "") : resultMathToString;
         setActualText(resultMathToString);
-        setSecondBufferedText(resultMathToString);
+        setFirstBufferedText(resultMathToString);
+        setContinuingMathCalculation(true);
     }
 
 }
