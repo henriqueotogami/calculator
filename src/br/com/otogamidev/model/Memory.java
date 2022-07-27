@@ -10,6 +10,7 @@ public class Memory {
     private CommandType lastCommandType = null;
     private boolean toReplace = false;
     private boolean continuingMathCalculation = false;
+    private int countNumberTyped = 0;
     private String actualText = "";
     private String firstBufferedText = "";
     private String secondBufferedText = "";
@@ -40,6 +41,16 @@ public class Memory {
 
     public void setContinuingMathCalculation(final boolean continuingMathCalculation) { this.continuingMathCalculation = continuingMathCalculation; }
 
+    public int getCountNumberTyped() { return countNumberTyped; }
+
+    public void setCountNumberTyped(final int countNumberTyped) {
+        if(countNumberTyped == 0) {
+            this.countNumberTyped = countNumberTyped;
+        } else {
+            this.countNumberTyped += countNumberTyped;
+        }
+    }
+
     public void setActualText(final String actualText) { this.actualText = actualText; }
 
     public String getActualText() { return actualText.isEmpty() ? "0" : actualText; }
@@ -62,15 +73,18 @@ public class Memory {
                     resetMemory();
                     break;
                 case NUMBER:
+                    setCountNumberTyped(1);
                     storeNumberTyped(typedValue);
                     break;
                 case COMMA:
+                    setCountNumberTyped(0);
                     addComma(typedValue);
                     break;
                 case SUM:
                 case SUBTRACTION:
                 case MULTIPLICATION:
                 case DIVISION:
+                    setCountNumberTyped(0);
                     setLastCommandType(commandType);
                     setActualText("");
                     break;
@@ -112,6 +126,7 @@ public class Memory {
         setSecondBufferedText("");
         setToReplace(false);
         setContinuingMathCalculation(false);
+        setCountNumberTyped(0);
         setLastCommandType(null);
     }
 
@@ -121,17 +136,18 @@ public class Memory {
     }
 
     private void storeNumberTyped(final String typedValue) {
-
-        setActualText((getActualText().contains(",")) ? getActualText().concat(typedValue) : typedValue);
-        System.out.println("1 - getActualText: " + getActualText());
+        // TODO: Adicionar tratamento de numeros negativos
+        if((getCountNumberTyped() > 1) || (getActualText().contains(","))) {
+            setActualText(getActualText().concat(typedValue));
+        } else {
+            setActualText(typedValue);
+        }
 
         if ((getLastCommandType() == null) && (isContinuingMathCalculation() == false)) {
             setFirstBufferedText(getActualText());
-            System.out.println("2 - getActualText: " + getActualText());
             return;
         } else {
             setSecondBufferedText(getActualText());
-            System.out.println("3 - getActualText: " + getActualText());
             return;
         }
 
@@ -141,9 +157,6 @@ public class Memory {
         double firstBufferTextCommaConversion = Double.parseDouble(getFirstBufferedText().replace(",", "."));
         double secondBufferTextCommaConversion = Double.parseDouble(getSecondBufferedText().replace(",", "."));
         double resultMathOperation = 0;
-
-        System.out.println("4 - firstBufferTextCommaConversion: " + firstBufferTextCommaConversion);
-        System.out.println("5 - secondBufferTextCommaConversion: " + secondBufferTextCommaConversion);
 
         setFirstBufferedText("");
         setSecondBufferedText("");
