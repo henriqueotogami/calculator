@@ -116,21 +116,40 @@ public class Memory {
     private void storeNumberTyped(final String typedValue) {
         if(getLastCommandType() == null) {
             setActualText((getActualText().contains(",")) ? getActualText().concat(typedValue) : typedValue);
+            System.out.println("1 - getActualText: " + getActualText());
         } else {
             setActualText(typedValue);
+            System.out.println("2 - getActualText: " + getActualText());
         }
 
-        if ((getFirstBufferedText().isEmpty()) || (getLastCommandType() == null)) {
+        if (getFirstBufferedText().isEmpty()) {
             setFirstBufferedText(getActualText());
+            System.out.println("3 - getActualText: " + getActualText());
+        } else if (getLastCommandType() == null){
+            setFirstBufferedText(getFirstBufferedText().concat(getActualText()));
+            setActualText(getFirstBufferedText());
+            System.out.println("4 - getActualText: " + getActualText());
         } else {
-            setSecondBufferedText(getActualText());
+
+            if (getSecondBufferedText().isEmpty()) {
+                setSecondBufferedText(getActualText());
+                System.out.println("5 - getActualText: " + getActualText());
+            } else if (getLastCommandType() == null){
+                setSecondBufferedText(getSecondBufferedText().concat(getActualText()));
+                setActualText(getSecondBufferedText());
+                System.out.println("6 - getActualText: " + getActualText());
+            }
         }
+
     }
 
     private void calculateMathOperation(){
         double firstBufferTextCommaConversion = Double.parseDouble(getFirstBufferedText().replace(",", "."));
         double secondBufferTextCommaConversion = Double.parseDouble(getSecondBufferedText().replace(",", "."));
         double resultMathOperation = 0;
+
+        setFirstBufferedText("");
+        setSecondBufferedText("");
 
         if(getLastCommandType().equals(CommandType.SUM)){
             resultMathOperation = (firstBufferTextCommaConversion + secondBufferTextCommaConversion);
@@ -144,7 +163,7 @@ public class Memory {
         String resultMathToString = Double.toString(resultMathOperation).replace(".", ",");
         resultMathToString = resultMathToString.contains(",0") ? resultMathToString.replace(",0", "") : resultMathToString;
         setActualText(resultMathToString);
-        setFirstBufferedText(resultMathToString);
+        setSecondBufferedText(resultMathToString);
     }
 
 }
