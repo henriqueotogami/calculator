@@ -27,7 +27,7 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 
 | Printscreen | Vídeo |
 | ----------- | ----- |
-| <img src="https://github.com/HenriqueMAP/calculator/blob/main/src/br/com/otogamidev/img/otogami-dev-Java-desktop-calculator.png?raw=true"> | [![Watch the video](https://img.youtube.com/vi/20pubhGZrJE/maxresdefault.jpg)](https://youtu.be/20pubhGZrJE) |
+| <img src="https://github.com/HenriqueMAP/calculator/blob/main/src/br/com/otogamidev/img/otogami-dev-Java-desktop-calculator.png?raw=true"> | [![Watch the video](https://img.youtube.com/vi/cWrxBB0KVMg/maxresdefault.jpg)](https://youtu.be/cWrxBB0KVMg) |
 
 <br>
 
