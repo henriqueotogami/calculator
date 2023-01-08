@@ -2,7 +2,7 @@
 
 # Basic Calculator | Calculadora Básica
 
-<img width="auto" src="https://github.com/HenriqueMAP/calculator/blob/main/src/br/com/otogamidev/img/Calculator.png?raw=true">
+<img width="auto" src="https://github.com/HenriqueMAP/calculator/blob/main/calculator.png?raw=true">
 <br>
 <br>
 <img src="https://img.shields.io/github/issues/HenriqueMAP/minesweeper">
