@@ -5,6 +5,10 @@
 <img width="auto" src="https://github.com/HenriqueMAP/calculator/blob/main/calculator.png?raw=true">
 <br>
 <br>
+<div align="center">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/henriquemap/calculator">
+</div>
+<br>
 <img src="https://img.shields.io/github/issues/HenriqueMAP/minesweeper">
 <img src="https://img.shields.io/github/forks/HenriqueMAP/minesweeper">
 <img src="https://img.shields.io/github/stars/HenriqueMAP/minesweeper">
