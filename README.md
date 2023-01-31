@@ -2,17 +2,17 @@
 
 # Basic Calculator | Calculadora Básica
 
-<img width="auto" src="https://github.com/HenriqueMAP/calculator/blob/main/calculator.png?raw=true">
+<img width="auto" src="https://github.com/henriqueotogami/calculator/blob/main/calculator.png?raw=true">
 <br>
 <br>
 <div align="center">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/henriquemap/calculator">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/henriqueotogami/calculator">
 </div>
 <br>
-<img src="https://img.shields.io/github/issues/HenriqueMAP/calculator">
-<img src="https://img.shields.io/github/forks/HenriqueMAP/calculator">
-<img src="https://img.shields.io/github/stars/HenriqueMAP/calculator">
-<img src="https://img.shields.io/github/license/HenriqueMAP/calculator">
+<img src="https://img.shields.io/github/issues/henriqueotogami/calculator">
+<img src="https://img.shields.io/github/forks/henriqueotogami/calculator">
+<img src="https://img.shields.io/github/stars/henriqueotogami/calculator">
+<img src="https://img.shields.io/github/license/henriqueotogami/calculator">
 </div>
 <br>
 <div align=center>
@@ -36,7 +36,7 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 
 | Printscreen | Vídeo |
 | ----------- | ----- |
-| <img src="https://github.com/HenriqueMAP/calculator/blob/main/src/br/com/otogamidev/img/otogami-dev-Java-desktop-calculator.png?raw=true"> | [![Watch the video](https://img.youtube.com/vi/cWrxBB0KVMg/maxresdefault.jpg)](https://youtu.be/cWrxBB0KVMg) |
+| <img src="https://github.com/henriqueotogami/calculator/blob/main/src/br/com/otogamidev/img/otogami-dev-Java-desktop-calculator.png?raw=true"> | [![Watch the video](https://img.youtube.com/vi/cWrxBB0KVMg/maxresdefault.jpg)](https://youtu.be/cWrxBB0KVMg) |
 
 <br>
 
@@ -68,7 +68,7 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 
 > ### Caso você queira ajudar a melhorar este repositório, qualquer ajuda é bem vinda.
 
-- [x] Faça um **fork** deste repositório (https://github.com/HenriqueMAP/calculator/fork);
+- [x] Faça um **fork** deste repositório (https://github.com/henriqueotogami/calculator/fork);
 - [x] Crie um **branch** com as suas modificações ` git checkout -b meu-novo-recurso `;
 - [x] Faça um **commit** ` git commit -am 'Adicionando um novo recurso ...'`;
 - [x] Faça um **push** ` git push origin meu-novo-recurso ` ;
