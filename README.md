@@ -62,7 +62,24 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 - [Wakatime](https://wakatime.com);
 - [Xcode-Dark Theme](https://plugins.jetbrains.com/plugin/13106-xcode-dark-theme);
 
+<hr>
+
+## 📝 Leia meus artigos
+
+### [Artigos no Medium](https://medium.com/@henriqueotogami)
+### [Artigos no Dev.to](https://dev.to/henriqueotogami)
+
 <br>
+
+## 💼 Conecte-se comigo
+### [Perfil no LinkedIn](https://www.linkedin.com/in/henrique-matheus-alves-pereira)
+
+<br>
+
+## 🙏🏻 Apoie meu conteúdo
+### [Compre-me um cafézinho | Buy me a coffee](https://ko-fi.com/henriqueotogami) ☕
+
+<hr>
 
 ## Contribuições
 
@@ -78,7 +95,7 @@ Curso: [Cod3r | Java 2022 Completo](https://www.udemy.com/course/fundamentos-de-
 
 <div align="center">
 
-<br>
+<hr>
 
 > ### **Muito obrigado, e que a força esteja com você.**
 >
